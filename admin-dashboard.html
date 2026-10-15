@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Operations Center — ShopAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="site-header" id="site-header">
+  <div class="header-left">
+    <div class="logo-icon">⚙️</div>
+    <div class="logo-text"><h1>ShopAI Master Admin</h1><span>Platform Health, Users &amp; Analytics</span></div>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn theme-toggle" id="themeToggle"><i class="fa fa-moon" id="theme-icon"></i></button>
+    <a href="index.html" class="btn btn-outline btn-sm">Storefront 🛍️</a>
+  </div>
+</header>
+<nav class="site-nav" id="site-nav">
+  <ul class="nav-list">
+    <li><a href="admin-dashboard.html" class="nav-link active">📊 System Overview</a></li>
+    <li><a href="#users-section" class="nav-link">👥 User Accounts</a></li>
+    <li><a href="#activity-section" class="nav-link">📜 Activity Logs</a></li>
+    <li><a href="seller-dashboard.html" class="nav-link">🏪 Seller Central</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h2>⚙️ Enterprise Administration Console</h2>
+    <p style="color:var(--text-muted); margin-top:0.5rem;">System metrics, role-based access control, security monitoring, and AI recommendations throughput.</p>
+  </div>
+</div>
+
+<main class="section">
+  <div class="container">
+    <!-- Top System Metrics -->
+    <div class="stats-grid mb-3">
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--primary);">₹1,24,98,400</div>
+        <div class="stat-label">Gross Merchandise Value (GMV)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--success);">4,821</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--info);">99.98%</div>
+        <div class="stat-label">System Uptime</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--warning);">18,410</div>
+        <div class="stat-label">AI Queries Processed</div>
+      </div>
+    </div>
+
+    <!-- User Management Table -->
+    <div class="card mb-3" id="users-section">
+      <div class="card-header">
+        <div class="card-title">👥 Registered Users &amp; Permissions</div>
+        <div style="display:flex; gap:0.5rem;">
+          <input type="text" id="user-filter" class="form-control" placeholder="Search user..." style="font-size:0.8rem; width:200px;" />
+          <button class="btn btn-primary btn-sm" onclick="showToast('Invited new admin role', 'success')">+ Add User</button>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+          <thead>
+            <tr style="border-bottom:1.5px solid var(--border); text-align:left; color:var(--text-muted);">
+              <th style="padding:0.75rem 0.5rem;">User</th>
+              <th style="padding:0.75rem 0.5rem;">Role</th>
+              <th style="padding:0.75rem 0.5rem;">Joined</th>
+              <th style="padding:0.75rem 0.5rem;">Orders</th>
+              <th style="padding:0.75rem 0.5rem;">Status</th>
+              <th style="padding:0.75rem 0.5rem;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="admin-user-table">
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:0.75rem 0.5rem;">
+                <strong>Rahul Sharma</strong>
+                <div style="font-size:0.75rem; color:var(--text-muted);">rahul@example.com</div>
+              </td>
+              <td style="padding:0.75rem 0.5rem;"><span class="tag tag-primary">Customer</span></td>
+              <td style="padding:0.75rem 0.5rem;">02 Oct 2026</td>
+              <td style="padding:0.75rem 0.5rem;">14 orders</td>
+              <td style="padding:0.75rem 0.5rem;"><span class="tag tag-success">Active</span></td>
+              <td style="padding:0.75rem 0.5rem;"><button class="btn btn-outline btn-sm">Inspect</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:0.75rem 0.5rem;">
+                <strong>Apex Electronics Ltd.</strong>
+                <div style="font-size:0.75rem; color:var(--text-muted);">seller@apextech.in</div>
+              </td>
+              <td style="padding:0.75rem 0.5rem;"><span class="tag tag-info">Verified Seller</span></td>
+              <td style="padding:0.75rem 0.5rem;">15 Sep 2026</td>
+              <td style="padding:0.75rem 0.5rem;">342 listings</td>
+              <td style="padding:0.75rem 0.5rem;"><span class="tag tag-success">Active</span></td>
+              <td style="padding:0.75rem 0.5rem;"><button class="btn btn-outline btn-sm">Inspect</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:0.75rem 0.5rem;">
+                <strong>Ananya Iyer</strong>
+                <div style="font-size:0.75rem; color:var(--text-muted);">ananya@example.com</div>
+              </td>
+              <td style="padding:0.75rem 0.5rem;"><span class="tag tag-primary">Customer</span></td>
+              <td style="padding:0.75rem 0.5rem;">08 Oct 2026</td>
+              <td style="padding:0.75rem 0.5rem;">2 orders</td>
+              <td style="padding:0.75rem 0.5rem;"><span class="tag tag-success">Active</span></td>
+              <td style="padding:0.75rem 0.5rem;"><button class="btn btn-outline btn-sm">Inspect</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:0.75rem 0.5rem;">
+                <strong>Master Admin</strong>
+                <div style="font-size:0.75rem; color:var(--text-muted);">admin@shopai.com</div>
+              </td>
+              <td style="padding:0.75rem 0.5rem;"><span class="tag tag-danger">SuperAdmin</span></td>
+              <td style="padding:0.75rem 0.5rem;">01 Jan 2026</td>
+              <td style="padding:0.75rem 0.5rem;">System Root</td>
+              <td style="padding:0.75rem 0.5rem;"><span class="tag tag-success">Active</span></td>
+              <td style="padding:0.75rem 0.5rem;"><button class="btn btn-outline btn-sm">Security</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Live System Activity Stream -->
+    <div class="card" id="activity-section">
+      <h3 class="card-title mb-2">📜 Real-Time Security &amp; Activity Stream</h3>
+      <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem;" id="activity-logs">
+        <div style="display:flex; gap:1rem; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--border);">
+          <span style="color:var(--text-muted); font-size:0.75rem;">10:04:12</span>
+          <span class="tag tag-success">AUTH</span>
+          <span>Customer login authenticated via token: <code>customer@shopai.com</code></span>
+        </div>
+        <div style="display:flex; gap:1rem; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--border);">
+          <span style="color:var(--text-muted); font-size:0.75rem;">09:58:34</span>
+          <span class="tag tag-info">AI_QUERY</span>
+          <span>AI Assistant matched 2 laptops for budget constraint <code>&lt;= 120000</code></span>
+        </div>
+        <div style="display:flex; gap:1rem; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--border);">
+          <span style="color:var(--text-muted); font-size:0.75rem;">09:45:00</span>
+          <span class="tag tag-primary">ORDER</span>
+          <span>Order <code>ORD-2026-8841</code> transition status changed to <em>Shipped</em></span>
+        </div>
+        <div style="display:flex; gap:1rem; align-items:center; padding:0.5rem 0;">
+          <span style="color:var(--text-muted); font-size:0.75rem;">09:30:19</span>
+          <span class="tag tag-warning">CACHE</span>
+          <span>AJAX product cache refreshed from <code>data/products.json</code></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="toast-container" id="toast-container"></div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('user-filter')?.addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#admin-user-table tr').forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  });
+</script>
+</body>
+</html>

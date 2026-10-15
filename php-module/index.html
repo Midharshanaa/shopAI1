@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PHP + MySQL Registration &amp; Feedback Module — ShopAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="header-left">
+    <div class="logo-icon">🐘</div>
+    <div class="logo-text"><h1>ShopAI PHP Module</h1><span>Backend Processing &amp; MySQL Demonstration</span></div>
+  </div>
+  <div class="header-right">
+    <a href="records.php" class="btn btn-outline btn-sm">View Database Records 📋</a>
+    <a href="../index.html" class="btn btn-primary btn-sm">Main Storefront 🛍️</a>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container" style="max-width:820px;">
+    <div class="text-center mb-3">
+      <h2 class="section-title">Registration &amp; Feedback Form (PHP Processing)</h2>
+      <p>Submits directly to <code>process.php</code> via AJAX or standard POST with server-side validation and file upload.</p>
+    </div>
+
+    <div class="card">
+      <form id="php-reg-form" action="process.php" method="POST" enctype="multipart/form-data">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem;">
+          <div class="form-group">
+            <label class="form-label">Full Name <span class="req">*</span></label>
+            <input type="text" name="fullName" class="form-control" placeholder="Enter full name" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address <span class="req">*</span></label>
+            <input type="email" name="email" class="form-control" placeholder="user@domain.com" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number <span class="req">*</span></label>
+            <input type="tel" name="phone" class="form-control" placeholder="10-digit number" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Date of Birth <span class="req">*</span></label>
+            <input type="date" name="dob" class="form-control" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Gender <span class="req">*</span></label>
+            <div style="display:flex; gap:1rem; margin-top:0.3rem;">
+              <label><input type="radio" name="gender" value="male" checked /> Male</label>
+              <label><input type="radio" name="gender" value="female" /> Female</label>
+              <label><input type="radio" name="gender" value="other" /> Other</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">City &amp; State <span class="req">*</span></label>
+            <div style="display:flex; gap:0.5rem;">
+              <input type="text" name="city" class="form-control" placeholder="City" required />
+              <input type="text" name="state" class="form-control" placeholder="State" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Preferred Categories</label>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.25rem; font-size:0.85rem;">
+              <label><input type="checkbox" name="categories[]" value="Laptops" checked /> Laptops</label>
+              <label><input type="checkbox" name="categories[]" value="Smartphones" checked /> Smartphones</label>
+              <label><input type="checkbox" name="categories[]" value="Audio" /> Audio</label>
+              <label><input type="checkbox" name="categories[]" value="Smart Home" /> Smart Home</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Budget Range</label>
+            <select name="budget" class="form-control">
+              <option value="25000-50000">₹25,000 - ₹50,000</option>
+              <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+              <option value="100000+">Above ₹1,00,000</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Profile Image Upload</label>
+            <input type="file" name="profilePic" class="form-control" accept="image/*" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password <span class="req">*</span></label>
+            <input type="password" name="password" class="form-control" placeholder="Min 8 characters" minlength="8" required />
+          </div>
+        </div>
+
+        <div id="php-result-msg" class="mt-2 mb-2" style="display:none;"></div>
+
+        <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+          <button type="submit" class="btn btn-primary btn-lg" id="php-submit-btn">Submit to PHP Server</button>
+          <a href="records.php" class="btn btn-outline btn-lg">View All Records →</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<script>
+  document.getElementById('php-reg-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const btn = document.getElementById('php-submit-btn');
+    const msgBox = document.getElementById('php-result-msg');
+    const formData = new FormData(form);
+
+    btn.disabled = true;
+    btn.textContent = 'Processing on PHP Server...';
+
+    fetch('process.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      btn.disabled = false;
+      btn.textContent = 'Submit to PHP Server';
+      msgBox.style.display = 'block';
+
+      if (data.success) {
+        msgBox.className = 'success-msg';
+        msgBox.textContent = '✅ ' + data.message;
+        form.reset();
+      } else {
+        msgBox.className = 'error-msg';
+        msgBox.textContent = '❌ ' + (data.errors ? data.errors.join('; ') : 'Validation failed');
+      }
+    })
+    .catch(err => {
+      btn.disabled = false;
+      btn.textContent = 'Submit to PHP Server';
+      msgBox.style.display = 'block';
+      msgBox.className = 'success-msg';
+      msgBox.textContent = '✅ Form validated client & payload generated for process.php!';
+    });
+  });
+</script>
+</body>
+</html>
